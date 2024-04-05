@@ -10,9 +10,10 @@ else
   TAG="$(cat ${DIR}/config/blobs.yml | grep 'windows2019fs/windows2016fs-' |  grep -o '\d*\.\d*\.\d*')"
 fi
 
+
 go install code.cloudfoundry.org/hydrator/cmd/hydrate@latest
 
-$GOPATH/bin/hydrate \
+hydrate \
   download \
   -image cloudfoundry/windows2016fs \
   -tag ${TAG} \
