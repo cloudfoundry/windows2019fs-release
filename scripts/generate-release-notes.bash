@@ -18,16 +18,13 @@ local_end_ref=$(get_end_ref_from_range "${version_range}")
 
 BLOBS_LOCATION="config/blobs.yml";
 
-get_non_bot_commits "${local_start_ref}" "${local_end_ref}"
-echo ""
+display_non_bot_commits "${local_start_ref}" "${local_end_ref}"
 
 START_REF_HYDRATOR=$(git rev-parse "${local_start_ref}:src/code.cloudfoundry.org/hydrator")
 END_REF_HYDRATOR=$(git rev-parse "${local_end_ref}:src/code.cloudfoundry.org/hydrator")
 pushd src/code.cloudfoundry.org/hydrator > /dev/null
-  get_non_bot_commits "${START_REF_HYDRATOR}" "${END_REF_HYDRATOR}" "hydrator"
-  echo ""
+  display_non_bot_commits "${START_REF_HYDRATOR}" "${END_REF_HYDRATOR}" "hydrator"
   display_go_mod_diff "${START_REF_HYDRATOR}" "${END_REF_HYDRATOR}" "go.mod" "hydrator"
 popd > /dev/null
 
-echo ""
 display_blob_change_info "${local_start_ref}" "${local_end_ref}" "${BLOBS_LOCATION}"
